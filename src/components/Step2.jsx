@@ -6,6 +6,8 @@ import { useFormContext } from 'react-hook-form';
 import Form from '../ui/Form';
 import Checkbox from '../ui/Checkbox';
 import { useNavigate } from 'react-router-dom';
+import parsePhoneNumberFromString from 'libphonenumber-js';
+import { useData } from '../context/DataContext';
 
 const rules = {
   email: {
@@ -18,26 +20,37 @@ const rules = {
   phoneNumber: {
     required: 'Phone number is required',
     pattern: {
-      value: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+      value: `^(1[ \-\+]{0,3}|\+1[ -\+]{0,3}|\+1|\+)?((\(\+?1-[2-9][0-9]{1,2}\))|(\(\+?[2-8][0-9][0-9]\))|(\(\+?[1-9][0-9]\))|(\(\+?[17]\))|(\([2-9][2-9]\))|([ \-\.]{0,3}[0-9]{2,4}))?([ \-\.][0-9])?([ \-\.]{0,3}[0-9]{2,4}){2,3}$`,
       message: 'Invalid phone number',
     },
   },
 };
 const Step2 = () => {
   const navigate = useNavigate();
+  const { data, setValues } = useData();
 
   const {
     handleSubmit,
     watch,
     control,
     formState: { errors },
+    getValues,
+    setValue,
   } = useFormContext();
 
   const hasPhoneNumber = watch('hasPhoneNumber');
 
   const onSubmit = (data) => {
-    console.log(data);
     navigate('/step3');
+    setValues(data);
+  };
+
+  const normalizePhoneNumber = (value) => {
+    const phoneNumber = parsePhoneNumberFromString(value);
+    if (phoneNumber) {
+      return phoneNumber.formatInternational();
+    }
+    return value;
   };
 
   return (
@@ -56,18 +69,21 @@ const Step2 = () => {
           />
           {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
         </div>
+        <Checkbox name={'hasPhoneNumber'} color='success' />
         <div className='flex flex-col gap-2'>
-          <Checkbox control={control} name={'hasPhoneNumber'} rules={rules.phoneNumber} />
+          {hasPhoneNumber && (
+            <Input
+              name={'phoneNumber'}
+              type={'text'}
+              label={'Phone number'}
+              rules={rules.phoneNumber}
+              onChange={(event) => {
+                setValue('phoneNumber', normalizePhoneNumber(event.target.value));
+              }}
+            />
+          )}
           {errors.phoneNumber && <p className='text-red-500'>{errors.phoneNumber.message}</p>}
         </div>
-        {hasPhoneNumber && (
-          <Input
-            name={'phoneNumber'}
-            type={'tel'}
-            label={'Phone number'}
-            // required={hasPhoneNumber}
-          />
-        )}
         <PrimaryButton type={'submit'}>Next</PrimaryButton>
       </Form>
     </MainContainer>

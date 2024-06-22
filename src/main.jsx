@@ -10,6 +10,7 @@ import Step2 from './components/Step2';
 import Step3 from './components/Step3';
 import FormNameProvider from './providers/FormNameProvider';
 import FormEmailProvider from './providers/FormEmailProvider';
+import FormFilesProvider from './providers/FormFilesProvider';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/step3',
-        element: <Step3 />,
+        element: (
+          <FormFilesProvider>
+            <Step3 />
+          </FormFilesProvider>
+        ),
         index: true,
       },
       {

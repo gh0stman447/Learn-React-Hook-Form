@@ -6,14 +6,14 @@ const DataContext = createContext();
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState({});
 
-  const setValue = (values) => {
+  const setValues = (values) => {
     setData((prevData) => ({
       ...prevData,
       ...values,
     }));
   };
 
-  return <DataContext.Provider value={{ data, setValue }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ data, setValues }}>{children}</DataContext.Provider>;
 };
 
 export const useData = () => useContext(DataContext);

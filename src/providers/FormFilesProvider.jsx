@@ -2,18 +2,15 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useData } from '../context/DataContext';
 
-const FormEmailProvider = ({ children }) => {
+const FormFilesProvider = ({ children }) => {
   const { data, setValues } = useData();
 
   const methods = useForm({
-    mode: 'onChange',
     defaultValues: {
-      email: data.email,
-      hasPhoneNumber: data.hasPhoneNumber,
-      phoneNumber: data.phoneNumber,
+      files: data.files,
     },
   });
   return <FormProvider {...methods}>{children}</FormProvider>;
 };
 
-export default FormEmailProvider;
+export default FormFilesProvider;

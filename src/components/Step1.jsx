@@ -5,6 +5,7 @@ import Input from '../ui/Input';
 import { useForm, useFormContext } from 'react-hook-form';
 import PrimaryButton from '../ui/PrimaryButton';
 import { useNavigate } from 'react-router-dom';
+import { useData } from '../context/DataContext';
 
 const rules = {
   firstName: {
@@ -31,6 +32,8 @@ const rules = {
   },
 };
 const Step1 = () => {
+  const { data, setValues } = useData();
+
   const {
     handleSubmit,
     formState: { errors },
@@ -38,8 +41,8 @@ const Step1 = () => {
 
   const navigate = useNavigate();
   const onSubmit = (data) => {
-    console.log(data);
     navigate('/step2');
+    setValues(data);
   };
 
   return (
