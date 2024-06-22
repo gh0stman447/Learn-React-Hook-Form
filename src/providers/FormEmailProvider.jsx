@@ -6,7 +6,7 @@ const FormEmailProvider = ({ children }) => {
   const { data } = useData();
 
   const methods = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       email: data.email,
       hasPhoneNumber: data.hasPhoneNumber,

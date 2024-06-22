@@ -10,7 +10,7 @@ const Input = ({ name, ...props }) => {
         control={control}
         name={name}
         rules={props.rules}
-        render={({ field }) => (
+        render={({ field:  }) => (
           <TextField {...field} variant='outlined' margin='normal' fullWidth {...props} />
         )}
       />
