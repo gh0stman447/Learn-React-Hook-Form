@@ -20,7 +20,7 @@ const rules = {
   phoneNumber: {
     required: 'Phone number is required',
     pattern: {
-      value: `^((\+7|7|8)+([0-9]){10})$`,
+      value: /^((\+7|7|8){1}(\ {0,1}[0-9]{3}){2}(\ {0,1}[0-9]{2}){2})|((\+7|7|8)+(\d){10})$/,
       message: 'Invalid phone number',
     },
   },
