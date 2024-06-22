@@ -8,7 +8,7 @@ import { useData } from '../context/DataContext';
 
 const Step3 = () => {
   const { control, handleSubmit } = useFormContext();
-  const { data, setValues } = useData();
+  const { setValues } = useData();
   const navigate = useNavigate();
   const onSubmit = (data) => {
     navigate('/result');

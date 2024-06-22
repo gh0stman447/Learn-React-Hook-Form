@@ -20,19 +20,18 @@ const rules = {
   phoneNumber: {
     required: 'Phone number is required',
     pattern: {
-      value: `^(1[ \-\+]{0,3}|\+1[ -\+]{0,3}|\+1|\+)?((\(\+?1-[2-9][0-9]{1,2}\))|(\(\+?[2-8][0-9][0-9]\))|(\(\+?[1-9][0-9]\))|(\(\+?[17]\))|(\([2-9][2-9]\))|([ \-\.]{0,3}[0-9]{2,4}))?([ \-\.][0-9])?([ \-\.]{0,3}[0-9]{2,4}){2,3}$`,
+      value: `^((\+7|7|8)+([0-9]){10})$`,
       message: 'Invalid phone number',
     },
   },
 };
 const Step2 = () => {
   const navigate = useNavigate();
-  const { data, setValues } = useData();
+  const { setValues } = useData();
 
   const {
     handleSubmit,
     watch,
-    control,
     formState: { errors },
     getValues,
     setValue,
@@ -80,6 +79,7 @@ const Step2 = () => {
               onChange={(event) => {
                 setValue('phoneNumber', normalizePhoneNumber(event.target.value));
               }}
+              error={!!errors?.phoneNumber}
             />
           )}
           {errors.phoneNumber && <p className='text-red-500'>{errors.phoneNumber.message}</p>}

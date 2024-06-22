@@ -3,7 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useData } from '../context/DataContext';
 
 const FormNameProvider = ({ children }) => {
-  const { data, setData } = useData();
+  const { data } = useData();
 
   const methods = useForm({
     mode: 'onChange',

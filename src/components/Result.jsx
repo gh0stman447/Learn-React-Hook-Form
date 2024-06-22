@@ -76,7 +76,6 @@ const Result = () => {
             </List>
           </>
         )}
-
         <PrimaryButton
           onClick={() => {
             Swal.fire('Good job! You`ve passed the challenge!', 'success');

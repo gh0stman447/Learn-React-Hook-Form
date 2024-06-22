@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import MainContainer from './MainContainer';
 import Form from '../ui/Form';
 import Input from '../ui/Input';
-import { useForm, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import PrimaryButton from '../ui/PrimaryButton';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../context/DataContext';
@@ -32,7 +32,7 @@ const rules = {
   },
 };
 const Step1 = () => {
-  const { data, setValues } = useData();
+  const { setValues } = useData();
 
   const {
     handleSubmit,
